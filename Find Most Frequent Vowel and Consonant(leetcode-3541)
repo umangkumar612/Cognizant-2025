@@ -1,0 +1,33 @@
+public class Solution {
+    public int maxFreqSum(String s) {   // lowercase 'm'
+        if (s == null) return 0;
+        s = s.toLowerCase();
+
+        String vowels = "aeiou";
+        boolean[] isVowel = new boolean[26];
+        for (char v : vowels.toCharArray()) {
+            isVowel[v - 'a'] = true;
+        }
+
+        int[] freq = new int[26];
+        for (char c : s.toCharArray()) {
+            if (c >= 'a' && c <= 'z') {
+                freq[c - 'a']++;
+            }
+        }
+
+        int maxVowel = 0;
+        for (char v : vowels.toCharArray()) {
+            maxVowel = Math.max(maxVowel, freq[v - 'a']);
+        }
+
+        int maxConsonant = 0;
+        for (char c = 'a'; c <= 'z'; c++) {
+            if (!isVowel[c - 'a']) {
+                maxConsonant = Math.max(maxConsonant, freq[c - 'a']);
+            }
+        }
+
+        return maxVowel + maxConsonant;
+    }
+}
